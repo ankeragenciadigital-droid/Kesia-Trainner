@@ -527,3 +527,117 @@ main {
   .grid-2 { grid-template-columns: 1fr; }
   .grid-span-2 { grid-column: span 1; }
 }
+
+/* ── Planos de treino ── */
+.plan-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.plan-card {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 1.1rem;
+}
+
+.plan-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.plan-card h3 { margin: 0 0 0.2rem; font-size: 1rem; }
+.plan-desc { color: var(--muted); font-size: 0.85rem; margin: 0.4rem 0 0.75rem; }
+
+.plan-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
+
+.exercise-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+
+.chip {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.75rem;
+  color: var(--cream);
+}
+
+.exercises-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+}
+
+.exercise-row {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 1rem;
+}
+
+.exercise-row-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.exercise-num {
+  background: var(--coral);
+  color: var(--ink);
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.btn-ghost.sm { padding: 0.3rem 0.6rem; font-size: 0.8rem; }
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+
+/* ── Tabela de exercícios (aluno) ── */
+.exercise-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+.exercise-table th {
+  text-align: left;
+  padding: 0.5rem 0.6rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid var(--line);
+}
+
+.exercise-table td {
+  padding: 0.6rem 0.6rem;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.exercise-table tr:last-child td { border-bottom: none; }
+
+select {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.8rem;
+  color: var(--cream);
+  font-size: 0.95rem;
+  width: 100%;
+  font-family: inherit;
+}
+
+select:focus { outline: 2px solid var(--coral); outline-offset: 1px; }
