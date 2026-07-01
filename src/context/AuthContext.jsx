@@ -9,67 +9,56 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   const loadProfile = useCallback(async (userId) => {
-    if (!userId) {
-      setProfile(null)
-      return
-    }
+    if (!userId) { setProfile(null); return }
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
       .eq('id', userId)
-      .maybeSingle()   // retorna null em vez de erro 406 quando não há linha
-    if (error) {
-      console.error('Erro ao carregar perfil:', error.message)
-      setProfile(null)
-    } else {
-      setProfile(data) // null se não existir perfil ainda
-    }
+      .maybeSingle()
+    if (error) { console.error('Erro ao carregar perfil:', error.message); setProfile(null) }
+    else { setProfile(data) }
   }, [])
 
   useEffect(() => {
     let mounted = true
-
     supabase.auth.getSession().then(async ({ data: { session } }) => {
       if (!mounted) return
       setSession(session)
       if (session?.user) await loadProfile(session.user.id)
       setLoading(false)
     })
-
     const { data: listener } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setSession(session)
-      if (session?.user) {
-        await loadProfile(session.user.id)
-      } else {
-        setProfile(null)
-      }
+      if (session?.user) { await loadProfile(session.user.id) }
+      else { setProfile(null) }
     })
-
-    return () => {
-      mounted = false
-      listener.subscription.unsubscribe()
-    }
+    return () => { mounted = false; listener.subscription.unsubscribe() }
   }, [loadProfile])
 
   const signUp = async ({ email, password, name, role, age, weight, bodyFat, trainerId }) => {
-    const { data, error } = await supabase.auth.signUp({ email, password })
-    if (error) return { error }
-
-    const userId = data.user?.id
-    if (!userId) return { error: { message: 'Confirme seu e-mail para continuar.' } }
-
-    const { error: profileError } = await supabase.from('profiles').insert({
-      id: userId,
-      role,
-      name,
-      age: age || null,
-      weight: weight || null,
-      body_fat: bodyFat || null,
-      trainer_id: role === 'student' ? trainerId || null : null,
+    // Dados passados como metadata — a trigger handle_new_user() no banco
+    // cria o perfil com SECURITY DEFINER, evitando erro 401 do RLS
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        data: {
+          name,
+          role,
+          age: age ? String(age) : '',
+          weight: weight ? String(weight) : '',
+          body_fat: bodyFat ? String(bodyFat) : '',
+          trainer_id: role === 'student' && trainerId ? trainerId : '',
+        },
+      },
     })
-    if (profileError) return { error: profileError }
-
-    await loadProfile(userId)
+    if (error) return { error }
+    const userId = data.user?.id
+    if (userId) {
+      // Aguarda um momento para a trigger executar antes de buscar o perfil
+      await new Promise((r) => setTimeout(r, 800))
+      await loadProfile(userId)
+    }
     return { error: null }
   }
 
@@ -87,9 +76,7 @@ export function AuthProvider({ children }) {
   const refreshProfile = () => loadProfile(session?.user?.id)
 
   return (
-    <AuthContext.Provider
-      value={{ session, profile, loading, signUp, signIn, signOut, refreshProfile }}
-    >
+    <AuthContext.Provider value={{ session, profile, loading, signUp, signIn, signOut, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   )
