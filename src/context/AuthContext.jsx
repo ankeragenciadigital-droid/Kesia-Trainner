@@ -17,12 +17,12 @@ export function AuthProvider({ children }) {
       .from('profiles')
       .select('*')
       .eq('id', userId)
-      .single()
+      .maybeSingle()   // retorna null em vez de erro 406 quando não há linha
     if (error) {
       console.error('Erro ao carregar perfil:', error.message)
       setProfile(null)
     } else {
-      setProfile(data)
+      setProfile(data) // null se não existir perfil ainda
     }
   }, [])
 

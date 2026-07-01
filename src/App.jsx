@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { useAuth } from './context/AuthContext'
+// signOut já vem do useAuth abaixo
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import StudentDashboard from './pages/StudentDashboard'
@@ -7,7 +8,7 @@ import TrainerDashboard from './pages/TrainerDashboard'
 import Header from './components/Header'
 
 export default function App() {
-  const { session, profile, loading } = useAuth()
+  const { session, profile, loading, signOut } = useAuth()
 
   if (loading) {
     return (
@@ -31,7 +32,13 @@ export default function App() {
   if (!profile) {
     return (
       <div className="splash">
-        <p>Não foi possível carregar seu perfil. Tente sair e entrar novamente.</p>
+        <span className="brand-mark big">KT</span>
+        <p style={{ textAlign: 'center', maxWidth: 340 }}>
+          Seu usuário não tem perfil cadastrado no app.<br />
+          <strong>Use a tela de Criar Conta</strong> para se registrar corretamente,
+          ou peça para a treinadora criar sua conta pelo app.
+        </p>
+        <button className="btn-ghost" onClick={signOut}>Sair</button>
       </div>
     )
   }
