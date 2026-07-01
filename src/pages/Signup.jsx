@@ -30,22 +30,20 @@ export default function Signup() {
       name,
       role,
       age: age ? Number(age) : null,
-      weight: weight ? Number(weight) : null,
-      bodyFat: bodyFat ? Number(bodyFat) : null,
+      weight: role === 'student' && weight ? Number(weight) : null,
+      bodyFat: role === 'student' && bodyFat ? Number(bodyFat) : null,
       trainerId: role === 'student' ? trainerCode.trim() || null : null,
     })
 
     setBusy(false)
 
     if (error) {
-      setError(error.message?.includes('confirme')
-        ? error.message
-        : 'Não foi possível criar a conta. Verifique os dados e tente novamente.')
+      setError('Não foi possível criar a conta. Verifique os dados e tente novamente.')
       return
     }
 
-    setInfo('Conta criada! Verifique seu e-mail para confirmar o cadastro, se necessário.')
-    setTimeout(() => navigate('/'), 1200)
+    setInfo('Conta criada com sucesso!')
+    setTimeout(() => navigate('/'), 800)
   }
 
   return (
@@ -61,24 +59,16 @@ export default function Signup() {
 
         <form onSubmit={handleSubmit} className="form">
           <div className="role-toggle">
-            <button
-              type="button"
-              className={role === 'student' ? 'active' : ''}
-              onClick={() => setRole('student')}
-            >
+            <button type="button" className={role === 'student' ? 'active' : ''} onClick={() => setRole('student')}>
               Sou aluno(a)
             </button>
-            <button
-              type="button"
-              className={role === 'trainer' ? 'active' : ''}
-              onClick={() => setRole('trainer')}
-            >
+            <button type="button" className={role === 'trainer' ? 'active' : ''} onClick={() => setRole('trainer')}>
               Sou treinadora
             </button>
           </div>
 
           <label>
-            Nome
+            Nome completo
             <input required value={name} onChange={(e) => setName(e.target.value)} />
           </label>
 
@@ -88,42 +78,39 @@ export default function Signup() {
           </label>
 
           <label>
-            Senha
-            <input
-              type="password"
-              required
-              minLength={6}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            Senha (mínimo 6 caracteres)
+            <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} />
           </label>
 
-          <div className="grid-2">
-            <label>
-              Idade
-              <input type="number" min="5" max="120" value={age} onChange={(e) => setAge(e.target.value)} />
-            </label>
-            <label>
-              Peso (kg)
-              <input type="number" step="0.1" min="0" value={weight} onChange={(e) => setWeight(e.target.value)} />
-            </label>
-          </div>
-
-          <label>
-            % de gordura corporal
-            <input type="number" step="0.1" min="0" max="100" value={bodyFat} onChange={(e) => setBodyFat(e.target.value)} />
-          </label>
-
+          {/* Campos exclusivos do aluno */}
           {role === 'student' && (
-            <label>
-              Código da treinadora (opcional)
-              <input
-                value={trainerCode}
-                onChange={(e) => setTrainerCode(e.target.value)}
-                placeholder="Cole aqui o ID que a Kesia te enviou"
-              />
-              <small>A treinadora encontra esse código no painel dela e pode te enviar por mensagem.</small>
-            </label>
+            <>
+              <div className="grid-2">
+                <label>
+                  Idade
+                  <input type="number" min="5" max="120" value={age} onChange={(e) => setAge(e.target.value)} />
+                </label>
+                <label>
+                  Peso (kg)
+                  <input type="number" step="0.1" min="0" value={weight} onChange={(e) => setWeight(e.target.value)} />
+                </label>
+              </div>
+
+              <label>
+                % de gordura corporal
+                <input type="number" step="0.1" min="0" max="100" value={bodyFat} onChange={(e) => setBodyFat(e.target.value)} />
+              </label>
+
+              <label>
+                Código da treinadora (opcional)
+                <input
+                  value={trainerCode}
+                  onChange={(e) => setTrainerCode(e.target.value)}
+                  placeholder="Cole aqui o ID que a Kesia te enviou"
+                />
+                <small>A treinadora encontra o código no painel dela.</small>
+              </label>
+            </>
           )}
 
           {error && <p className="form-error">{error}</p>}
