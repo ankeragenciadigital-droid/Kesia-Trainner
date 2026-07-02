@@ -641,3 +641,269 @@ select {
 }
 
 select:focus { outline: 2px solid var(--coral); outline-offset: 1px; }
+
+/* ── Student shell ── */
+.student-shell { display: flex; flex-direction: column; min-height: calc(100vh - 60px); }
+.student-content { flex: 1; padding-bottom: 80px; max-width: 680px; margin: 0 auto; width: 100%; }
+.tab-content { display: flex; flex-direction: column; gap: 1rem; padding: 0 1.25rem 1rem; }
+
+/* ── Hero ── */
+.student-hero {
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 680px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.hero-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+
+.hero-stat {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hero-stat-icon { font-size: 1.2rem; }
+.hero-stat div { display: flex; flex-direction: column; }
+.hero-stat strong { font-family: var(--font-display); font-size: 1.2rem; line-height: 1; }
+.hero-stat span { font-size: 0.7rem; color: var(--muted); margin-top: 0.1rem; }
+
+/* ── Section title ── */
+.section-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 1rem 0 0.25rem;
+}
+.section-title span { font-family: var(--font-display); font-size: 1.2rem; letter-spacing: 0.03em; }
+
+/* ── Plan card student view ── */
+.plan-card-student {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.1rem;
+}
+
+.plan-card-student-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.plan-card-student-head h3 { margin: 0 0 0.25rem; }
+.plan-card-student-head p { margin: 0 0 0.4rem; color: var(--muted); font-size: 0.85rem; }
+
+.btn-start {
+  background: var(--coral);
+  color: var(--ink);
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 0.85rem;
+}
+
+.btn-start:hover { background: var(--coral-dim); }
+
+/* ── Exercise list ── */
+.exercise-list-label {
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.75rem 0 0.5rem;
+  border-top: 1px solid var(--line);
+  margin-top: 0.5rem;
+}
+
+.exercise-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.exercise-item:last-child { border-bottom: none; }
+.exercise-item.done { opacity: 0.55; }
+
+.ex-num {
+  background: var(--coral);
+  color: var(--ink);
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: background 0.2s;
+}
+
+.ex-info { display: flex; flex-direction: column; gap: 0.15rem; flex: 1; }
+.ex-info strong { font-size: 0.95rem; }
+.ex-meta { font-size: 0.78rem; }
+.ex-notes { font-size: 0.75rem; font-style: italic; }
+
+/* ── Active workout ── */
+.active-workout { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.25rem; }
+
+/* ── Bottom nav ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  display: flex;
+  z-index: 20;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.bottom-nav button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.7rem 0.25rem;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.bottom-nav button span:first-child { font-size: 1.3rem; }
+.bottom-nav button.active { color: var(--coral); }
+
+/* ── Water ── */
+.water-card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 1.5rem; display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+
+.water-circle-wrap { position: relative; width: 160px; height: 160px; display: grid; place-items: center; }
+.water-svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.water-circle-text { position: relative; text-align: center; display: flex; flex-direction: column; gap: 0.1rem; }
+.water-circle-text strong { font-family: var(--font-display); font-size: 2rem; color: #5B6EF5; }
+.water-circle-text span { font-size: 0.85rem; }
+
+.water-btns { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; width: 100%; }
+
+.btn-water {
+  background: var(--ink);
+  border: 1px solid #5B6EF5;
+  color: #5B6EF5;
+  padding: 0.7rem 0.5rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+
+.btn-water:hover { background: #5B6EF5; color: var(--ink); }
+
+.water-congrats {
+  background: rgba(31,216,164,0.12);
+  border: 1px solid var(--mint);
+  color: var(--mint);
+  padding: 0.7rem 1.2rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ── Chat ── */
+.chat-container { display: flex; flex-direction: column; height: calc(100vh - 220px); min-height: 400px; }
+
+.chat-messages { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem; padding: 0.5rem 0 1rem; }
+
+.chat-bubble { display: flex; gap: 0.6rem; align-items: flex-end; }
+.chat-bubble.user { flex-direction: row-reverse; }
+
+.chat-avatar {
+  background: var(--coral);
+  color: var(--ink);
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+}
+
+.chat-text {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  max-width: 80%;
+  white-space: pre-wrap;
+}
+
+.chat-bubble.user .chat-text { background: var(--coral); border-color: var(--coral); color: var(--ink); border-bottom-right-radius: 4px; }
+.chat-bubble.assistant .chat-text { border-bottom-left-radius: 4px; }
+
+.typing { display: flex; gap: 4px; align-items: center; height: 20px; }
+.typing span { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); animation: blink 1.2s infinite; }
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink { 0%, 80%, 100% { opacity: 0.3 } 40% { opacity: 1 } }
+
+.chat-input-row { display: flex; gap: 0.5rem; padding-top: 0.75rem; border-top: 1px solid var(--line); }
+.chat-input-row input { flex: 1; background: var(--ink); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 0.7rem 0.9rem; color: var(--cream); font-size: 0.9rem; }
+.chat-input-row input:focus { outline: 2px solid var(--coral); }
+.chat-input-row .btn-primary { padding: 0.7rem 1.1rem; font-size: 1rem; }
+
+/* ── Trainer student cards (horizontal scroll) ── */
+.student-cards-scroll {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0.25rem 0 0.75rem;
+  scrollbar-width: none;
+}
+.student-cards-scroll::-webkit-scrollbar { display: none; }
+
+.student-card-select {
+  background: var(--card);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: 0.9rem;
+  min-width: 160px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  position: relative;
+  transition: border-color 0.15s;
+}
+
+.student-card-select.active { border-color: var(--coral); }
+.student-card-select:hover { border-color: var(--coral); }
+
+.student-card-info { display: flex; flex-direction: column; gap: 0.2rem; font-size: 0.85rem; }
+.student-card-info strong { font-size: 0.9rem; }
+
+.selected-dot { position: absolute; top: 0.5rem; right: 0.5rem; width: 8px; height: 8px; border-radius: 50%; background: var(--coral); }
